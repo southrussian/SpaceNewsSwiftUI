@@ -36,7 +36,13 @@ struct SpaceData: Codable, Identifiable {
                 }
                 return
             }
-
-        }
+            
+            let spaceData = try! JSONDecoder().decode([SpaceData].self, from: data)
+            
+            DispatchQueue.main.async {
+                print("Items loaded successfully. \(spaceData.count)")
+                self.news = spaceData
+            }
+        }.resume()
     }
 }
